@@ -4,6 +4,7 @@ public class AppUI {
     public static SystemManager systemManager = new SystemManager();
     public static Scanner scanner = new Scanner(System.in);
     static int userID;
+    static Athlete athlete;
 
     public static void main(String[] args) {
         displayMainMenu();
@@ -25,6 +26,7 @@ public class AppUI {
             System.out.println("Enter your choice: ");
 
             if (!scanner.hasNextInt()) {
+                System.out.println();
                 System.out.println("Invalid choice, please try again!");
                 scanner.nextLine();
                 continue;
@@ -33,22 +35,51 @@ public class AppUI {
 
             switch (userChoice) {
                 case 1: // login as athlete
-                    System.out.println("Enter your user ID: ");
-                    userID = scanner.nextInt();
-                    System.out.println("Successfully logged, welcome back!");
+                    System.out.println();
+                    if (!loginAthlete()) {
+                        System.out.println();
+                        System.out.println("Invalid user ID, please try again!");
+                        break;
+                    }
+                    System.out.println();
+                    System.out.println("Successfully logged in, Welcome " + athlete.name + "!");
+                    displayAthleteMenu();
                     break;
 
                 case 2: // login as medical practitioner
                     break;
 
                 case 3: // register as athlete
+                    System.out.println();
                     systemManager.addAthlete();
                     break;
 
                 default:
+                    System.out.println();
                     System.out.println("Invalid choice, please try again!");
                     break;
             }
         } while (true);
+    }
+
+    public static void displayAthleteMenu() {
+        System.out.println("this is the athlete menu");
+    }
+
+    private static boolean loginAthlete() {
+        System.out.println("Enter your user ID: ");
+        if (!scanner.hasNextInt()) {
+            scanner.nextLine();
+            return false;
+        }
+        userID = scanner.nextInt();
+        athlete = systemManager.getAthlete(userID);
+
+        if (athlete == null) {
+            scanner.nextLine();
+            return false;
+        }
+
+        return true;
     }
 }
