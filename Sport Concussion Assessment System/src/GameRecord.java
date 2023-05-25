@@ -2,24 +2,83 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class GameRecord {
-  final int minGameID = 1000;
-  final int maxGameID = 9999;
+  private int gameID;
+  private String createdAt;
+  private int[] symptomScores;
+  private int totalSymptomCount;
+  private int symptomSeverityScore;
+  private String overallRating;
 
-  public int userID;
-  public int gameID;
-  public String createdAt;
-  public int[] symptomScores;
+  private DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-  DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-  public GameRecord(int userID, int[] symptomScores) {
-    this.userID = userID;
-    this.gameID = (int) (Math.random() * (maxGameID - minGameID + 1)) + minGameID;
+  public GameRecord(int[] symptomScores, GameRecord prevGameRecord) {
     this.symptomScores = symptomScores;
     this.createdAt = LocalDateTime.now().format(dateFmt);
+    this.totalSymptomCount = calcTotalSymptomCount();
+    this.symptomSeverityScore = calcSymptomSeverityScore();
+    this.gameID = prevGameRecord == null ? 1 : prevGameRecord.getGameID() + 1;
+    this.overallRating = prevGameRecord == null ? "N/A" : calcOverallRating(prevGameRecord);
+  }
+
+  private int calcTotalSymptomCount() {
+    int totalSymptomCount = 0;
+    for (int score : this.symptomScores) {
+      if (score > 0) {
+        totalSymptomCount++;
+      }
+    }
+    return totalSymptomCount;
+  }
+
+  private int calcSymptomSeverityScore() {
+    int symptomSeverityScore = 0;
+    for (int score : this.symptomScores) {
+      symptomSeverityScore += score;
+    }
+    return symptomSeverityScore;
+  }
+
+  private String calcOverallRating(GameRecord prevGameRecord) {
+    int totalSymptomDifference = this.totalSymptomCount - prevGameRecord.getTotalSymptomCount();
+    int symptomSeverityDifference = this.symptomSeverityScore - prevGameRecord.getSymptomSeverityScore();
+
+    if (totalSymptomDifference < 3 && symptomSeverityDifference < 10) {
+      return "No Difference";
+    } else if (totalSymptomDifference < 3 && symptomSeverityDifference >= 10) {
+      return "Unsure";
+    } else {
+      return "Very different";
+    }
+  }
+
+  public int getGameID() {
+    return this.gameID;
+  }
+
+  public int getTotalSymptomCount() {
+    return this.totalSymptomCount;
+  }
+
+  public int getSymptomSeverityScore() {
+    return this.symptomSeverityScore;
+  }
+
+  public String getOverallRating() {
+    return this.overallRating;
+  }
+
+  public String getSymptomSummary() {
+    return "Game: " + this.gameID + "\n" +
+        "Total number of symptoms: " + this.totalSymptomCount + "\n" +
+        "Symptom severity score: " + this.symptomSeverityScore + "\n" +
+        "Overall rating: " + this.overallRating;
   }
 
   public String toString() {
-    return "User ID: " + this.userID + "Game ID: " + this.gameID + "\n" + "Created at: " + this.createdAt;
+    return "Game ID: " + this.gameID + "\n" +
+        "Total number of symptoms: " + this.totalSymptomCount + "\n" +
+        "Symptom severity score: " + this.symptomSeverityScore + "\n" +
+        "Overall rating: " + this.totalSymptomCount + "\n" +
+        "Created at: " + this.createdAt;
   }
 }

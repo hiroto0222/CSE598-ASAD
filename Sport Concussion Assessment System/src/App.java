@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -32,6 +33,7 @@ public class App {
             System.out.println("5. Exit");
             System.out.println();
             System.out.println("Enter your choice: ");
+
             if (!scanner.hasNextInt()) {
                 System.out.println();
                 System.out.println("Invalid choice, please try again!");
@@ -91,6 +93,7 @@ public class App {
             System.out.println("6. Exit");
             System.out.println();
             System.out.println("Enter your choice: ");
+
             if (!scanner.hasNextInt()) {
                 System.out.println();
                 System.out.println("Invalid choice, please try again!");
@@ -102,11 +105,25 @@ public class App {
             switch (userChoice) {
                 case 1: // add a new game record for symptoms
                     System.out.println();
-                    int[] symptomScores = displaySymptomScoresMenu();
+                    int[] symptomScores = displaySymptomScoresForm();
                     athlete.addGameRecord(symptomScores);
                     break;
 
                 case 2: // view your symptoms summary
+                    ArrayList<GameRecord> gameRecords = athlete.getGameRecordsList();
+
+                    System.out.println();
+                    if (gameRecords.size() == 0) {
+                        System.out.println("No game records found");
+                        break;
+                    }
+
+                    System.out.println("Dislaying Symptoms Summary for 5 most recent games recorded:");
+                    System.out.println("---------");
+                    for (GameRecord gameRecord : gameRecords) {
+                        System.out.println(gameRecord.getSymptomSummary());
+                        System.out.println("---------");
+                    }
                     break;
 
                 case 3: // am I at risk?
@@ -149,7 +166,7 @@ public class App {
         return true;
     }
 
-    private static int[] displaySymptomScoresMenu() {
+    private static int[] displaySymptomScoresForm() {
         int[] symptomScores = new int[symptoms.length];
 
         System.out.println("Enter your level of pain (0-6): none(0), mild(1-2), moderate(3-4), severe(5-6)");

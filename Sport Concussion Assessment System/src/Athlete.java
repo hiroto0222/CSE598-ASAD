@@ -1,9 +1,10 @@
+import java.util.ArrayList;
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Athlete {
-  final int minUserID = 1000;
-  final int maxUserID = 9999;
+  private final int minUserID = 1000;
+  private final int maxUserID = 9999;
 
   int userID;
   String name;
@@ -12,7 +13,7 @@ public class Athlete {
   String medicalPractitionerAdvice = "N/A";
 
   // queue to store 5 most recent game records
-  Queue<GameRecord> gameRecords = new LinkedList<>();
+  Deque<GameRecord> gameRecords = new LinkedList<>();
 
   public Athlete(String name, int age, String sport) {
     this.userID = (int) (Math.random() * (maxUserID - minUserID + 1)) + minUserID;
@@ -22,11 +23,16 @@ public class Athlete {
   }
 
   public void addGameRecord(int[] symptomScores) {
-    GameRecord gameRecord = new GameRecord(this.userID, symptomScores);
+    GameRecord prevGameRecord = gameRecords.peekLast();
+    GameRecord gameRecord = new GameRecord(symptomScores, prevGameRecord);
     gameRecords.add(gameRecord);
     if (gameRecords.size() > 5) {
       gameRecords.remove();
     }
+  }
+
+  public ArrayList<GameRecord> getGameRecordsList() {
+    return new ArrayList<>(this.gameRecords);
   }
 
   public String toString() {
