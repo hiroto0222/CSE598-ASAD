@@ -59,6 +59,15 @@ public class App {
                     systemManager.addAthlete();
                     break;
 
+                case 4: // register as medical practitioner
+                    break;
+
+                case 5: // exit
+                    System.out.println();
+                    System.out.println("Thank you for using Sport Concussion Assessment System!");
+                    System.exit(0);
+                    break;
+
                 default:
                     System.out.println();
                     System.out.println("Invalid choice, please try again!");
@@ -110,7 +119,10 @@ public class App {
                     return;
 
                 case 6: // exit
-                    return;
+                    System.out.println();
+                    System.out.println("Thank you for using Sport Concussion Assessment System!");
+                    System.exit(0);
+                    break;
 
                 default:
                     System.out.println();
