@@ -53,7 +53,7 @@ public class App {
                     displayAthleteMenu();
                     break;
 
-                case 2: // login as medical practitioner
+                case 2: // TODO: login as medical practitioner
                     break;
 
                 case 3: // register as athlete
@@ -61,7 +61,7 @@ public class App {
                     systemManager.addAthlete();
                     break;
 
-                case 4: // register as medical practitioner
+                case 4: // TODO: register as medical practitioner
                     break;
 
                 case 5: // exit
@@ -126,13 +126,13 @@ public class App {
                     }
                     break;
 
-                case 3: // am I at risk?
+                case 3: // TODO: am I at risk?
                     break;
 
-                case 4: // view your medical practioner's advice
+                case 4: // TODO: view your medical practioner's advice
                     break;
 
-                case 5: // back
+                case 5: // TODO: back
                     return;
 
                 case 6: // exit
