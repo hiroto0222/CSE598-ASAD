@@ -2,18 +2,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
+    public static SystemManager systemManager = new SystemManager();
+    public static Scanner scanner = new Scanner(System.in);
+    // logged in user info
+    static int userID;
+    static Athlete athlete;
+
     final static String[] symptoms = new String[] { "Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting",
             "Dizziness", "Blurred vision", "Balance problems", "Sensitivity to light", "Sensitivity to noise",
             "Feeling slowed down", "Feeling like 'in a fog'", "Don't feel right",
             "Difficulty concentrating", "Difficulty remembering", "Fatigue or low energy",
             "Confusion", "Drowsiness", "Trouble falling asleep", "More emotional",
             "Irritability", "Sadness", "Nervous or Anxious" };
-
-    public static SystemManager systemManager = new SystemManager();
-    public static Scanner scanner = new Scanner(System.in);
-    // logged in user info
-    static int userID;
-    static Athlete athlete;
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
         displayMainMenu();
@@ -118,7 +123,7 @@ public class App {
                         break;
                     }
 
-                    System.out.println("Dislaying Symptoms Summary for 5 most recent games recorded:");
+                    System.out.println("Dislaying Symptoms Summary for 5 most recent games recorded: ");
                     System.out.println("---------");
                     for (GameRecord gameRecord : gameRecords) {
                         System.out.println(gameRecord.getSymptomSummary());
@@ -126,7 +131,10 @@ public class App {
                     }
                     break;
 
-                case 3: // TODO: am I at risk?
+                case 3: // am I at risk?
+                    System.out.println();
+                    System.out.println("Displaying your current risk indicator: ");
+                    System.out.println(GameRecord.getColoredOverallRating(athlete.getCurrentRiskIndicator()));
                     break;
 
                 case 4: // TODO: view your medical practioner's advice

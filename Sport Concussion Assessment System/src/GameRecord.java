@@ -71,7 +71,20 @@ public class GameRecord {
     return "Game: " + this.gameID + "\n" +
         "Total number of symptoms: " + this.totalSymptomCount + "\n" +
         "Symptom severity score: " + this.symptomSeverityScore + "\n" +
-        "Overall rating: " + this.overallRating;
+        "Overall rating: " + getColoredOverallRating(this.overallRating);
+  }
+
+  public static String getColoredOverallRating(String overallRating) {
+    switch (overallRating) {
+      case "No Difference":
+        return App.ANSI_GREEN_BACKGROUND + App.ANSI_WHITE + overallRating + App.ANSI_RESET;
+      case "Unsure":
+        return App.ANSI_YELLOW_BACKGROUND + App.ANSI_WHITE + overallRating + App.ANSI_RESET;
+      case "Very different":
+        return App.ANSI_RED_BACKGROUND + App.ANSI_WHITE + overallRating + App.ANSI_RESET;
+      default:
+        return overallRating;
+    }
   }
 
   public String toString() {

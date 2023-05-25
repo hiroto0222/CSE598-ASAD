@@ -35,6 +35,14 @@ public class Athlete {
     return new ArrayList<>(this.gameRecords);
   }
 
+  public String getCurrentRiskIndicator() {
+    GameRecord mostRecentGameRecord = this.gameRecords.peekLast();
+    if (mostRecentGameRecord == null) {
+      return "No game records found";
+    }
+    return mostRecentGameRecord.getOverallRating();
+  }
+
   public String toString() {
     return "User ID: " + this.userID + "\n" + "Name: " + this.name + "\n" + "Age: " + this.age + "\n" + "Sport: "
         + this.sport + "\n" + "Medical Practitioner Advice: " + this.medicalPractitionerAdvice;
