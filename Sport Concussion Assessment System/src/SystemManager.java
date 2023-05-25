@@ -14,6 +14,7 @@ public class SystemManager {
       System.out.println("Invalid name, please try again!");
       scanner.nextLine();
     }
+    System.out.println();
     String name = scanner.nextLine();
 
     System.out.println("Enter your age: ");
@@ -21,6 +22,7 @@ public class SystemManager {
       System.out.println("Invalid age, please try again!");
       scanner.nextLine();
     }
+    System.out.println();
     int age = Integer.parseInt(scanner.nextLine());
 
     System.out.println("Enter your sport: ");
@@ -28,12 +30,12 @@ public class SystemManager {
       System.out.println("Invalid sport, please try again!");
       scanner.nextLine();
     }
+    System.out.println();
     String sport = scanner.nextLine();
 
     Athlete athlete = new Athlete(name, age, sport);
     athletes.add(athlete);
 
-    System.out.println();
     System.out.println("Successfully registered, your user ID is " + athlete.userID);
   }
 
