@@ -86,7 +86,7 @@ public class App {
     public static void displayAthleteMenu() {
         do {
             System.out.println();
-            System.out.println("Welcome back, " + athlete.getName() + "!");
+            System.out.println("Welcome back, " + athlete.name + "!");
             System.out.println("----------------------------------------------");
             System.out.println("Please select one of the following options (1-6): ");
             System.out.println();

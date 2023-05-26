@@ -37,12 +37,12 @@ public class SystemManager {
     athletes.add(athlete);
 
     System.out.println("Successfully registered, your user ID is " + App.ANSI_GREEN_BACKGROUND + App.ANSI_WHITE
-        + athlete.getUserID() + App.ANSI_RESET);
+        + athlete.userID + App.ANSI_RESET);
   }
 
   public Athlete getAthlete(int userID) {
     for (Athlete athlete : athletes) {
-      if (athlete.getUserID() == userID) {
+      if (athlete.userID == userID) {
         return athlete;
       }
     }

@@ -6,14 +6,14 @@ public class Athlete {
   private final int minUserID = 1000;
   private final int maxUserID = 9999;
 
-  private int userID;
-  private String name;
-  private int age;
-  private String sport;
-  private String medicalPractitionerAdvice = "N/A";
+  public int userID;
+  public String name;
+  public int age;
+  public String sport;
+  public String medicalPractitionerAdvice = "N/A";
 
   // queue to store 5 most recent game records
-  private Deque<GameRecord> gameRecords = new LinkedList<>();
+  public Deque<GameRecord> gameRecords = new LinkedList<>();
 
   public Athlete(String name, int age, String sport) {
     this.userID = (int) (Math.random() * (maxUserID - minUserID + 1)) + minUserID;
@@ -41,14 +41,6 @@ public class Athlete {
       return "No game records found";
     }
     return mostRecentGameRecord.getOverallRating();
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  public int getUserID() {
-    return this.userID;
   }
 
   public String toString() {
