@@ -6,14 +6,14 @@ public class Athlete {
   private final int minUserID = 1000;
   private final int maxUserID = 9999;
 
-  public int userID;
-  public String name;
-  public int age;
-  public String sport;
-  public String medicalPractitionerAdvice = "N/A";
+  private int userID;
+  private String name;
+  private int age;
+  private String sport;
+  private String medicalPractitionerAdvice = "N/A";
 
   // queue to store 5 most recent game records
-  public Deque<GameRecord> gameRecords = new LinkedList<>();
+  private Deque<GameRecord> gameRecords = new LinkedList<>();
 
   public Athlete(String name, int age, String sport) {
     this.userID = (int) (Math.random() * (maxUserID - minUserID + 1)) + minUserID;
@@ -31,10 +31,6 @@ public class Athlete {
     }
   }
 
-  public ArrayList<GameRecord> getGameRecordsList() {
-    return new ArrayList<>(this.gameRecords);
-  }
-
   public String getCurrentRiskIndicator() {
     GameRecord mostRecentGameRecord = this.gameRecords.peekLast();
     if (mostRecentGameRecord == null) {
@@ -43,8 +39,31 @@ public class Athlete {
     return mostRecentGameRecord.getOverallRating();
   }
 
-  public String toString() {
-    return "User ID: " + this.userID + "\n" + "Name: " + this.name + "\n" + "Age: " + this.age + "\n" + "Sport: "
-        + this.sport + "\n" + "Medical Practitioner Advice: " + this.medicalPractitionerAdvice;
+  public int getUserID() {
+    return this.userID;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public int getAge() {
+    return this.age;
+  }
+
+  public String getSport() {
+    return this.sport;
+  }
+
+  public String getMedicalPractitionerAdvice() {
+    return this.medicalPractitionerAdvice;
+  }
+
+  public void setMedicalPractitionerAdvice(String text) {
+    this.medicalPractitionerAdvice = text;
+  }
+
+  public ArrayList<GameRecord> getGameRecordsList() {
+    return new ArrayList<>(this.gameRecords);
   }
 }

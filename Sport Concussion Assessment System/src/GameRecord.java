@@ -69,6 +69,7 @@ public class GameRecord {
 
   public String getSymptomSummary() {
     return "Game: " + this.gameID + "\n" +
+        "Date: " + this.createdAt + "\n" +
         "Total number of symptoms: " + this.totalSymptomCount + "\n" +
         "Symptom severity score: " + this.symptomSeverityScore + "\n" +
         "Overall rating: " + getColoredOverallRating(this.overallRating);
@@ -85,13 +86,5 @@ public class GameRecord {
       default:
         return overallRating;
     }
-  }
-
-  public String toString() {
-    return "Game ID: " + this.gameID + "\n" +
-        "Total number of symptoms: " + this.totalSymptomCount + "\n" +
-        "Symptom severity score: " + this.symptomSeverityScore + "\n" +
-        "Overall rating: " + this.totalSymptomCount + "\n" +
-        "Created at: " + this.createdAt;
   }
 }
