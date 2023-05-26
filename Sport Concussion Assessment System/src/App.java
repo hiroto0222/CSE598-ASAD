@@ -110,7 +110,7 @@ public class App {
             switch (userChoice) {
                 case 1: // add a new game record for symptoms
                     System.out.println();
-                    int[] symptomScores = displaySymptomScoresForm();
+                    int[] symptomScores = getUserSymptomScores();
                     athlete.addGameRecord(symptomScores);
                     break;
 
@@ -175,7 +175,7 @@ public class App {
         return true;
     }
 
-    private static int[] displaySymptomScoresForm() {
+    private static int[] getUserSymptomScores() {
         int[] symptomScores = new int[symptoms.length];
 
         System.out.println("Enter your level of pain (0-6): none(0), mild(1-2), moderate(3-4), severe(5-6)");
