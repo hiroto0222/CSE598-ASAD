@@ -86,7 +86,7 @@ public class App {
     public static void displayAthleteMenu() {
         do {
             System.out.println();
-            System.out.println("Welcome back, " + athlete.name + "!");
+            System.out.println("Welcome back, " + athlete.getName() + "!");
             System.out.println("----------------------------------------------");
             System.out.println("Please select one of the following options (1-6): ");
             System.out.println();
@@ -140,8 +140,9 @@ public class App {
                 case 4: // TODO: view your medical practioner's advice
                     break;
 
-                case 5: // TODO: back
-                    return;
+                case 5: // back
+                    displayMainMenu();
+                    break;
 
                 case 6: // exit
                     System.out.println();
