@@ -41,8 +41,7 @@ public class App {
             System.out.println("Enter your choice: ");
 
             if (!scanner.hasNextInt()) {
-                System.out.println();
-                System.out.println("Invalid choice, please try again!");
+                displayInvalidChoice();
                 scanner.nextLine();
                 continue;
             }
@@ -80,14 +79,11 @@ public class App {
                     break;
 
                 case 5: // exit
-                    System.out.println();
-                    System.out.println("Thank you for using Sport Concussion Assessment System!");
-                    System.exit(0);
+                    exit();
                     break;
 
                 default:
-                    System.out.println();
-                    System.out.println("Invalid choice, please try again!");
+                    displayInvalidChoice();
                     break;
             }
         } while (true);
@@ -110,8 +106,7 @@ public class App {
             System.out.println("Enter your choice: ");
 
             if (!scanner.hasNextInt()) {
-                System.out.println();
-                System.out.println("Invalid choice, please try again!");
+                displayInvalidChoice();
                 scanner.nextLine();
                 continue;
             }
@@ -125,20 +120,7 @@ public class App {
                     break;
 
                 case 2: // view your symptoms summary
-                    ArrayList<GameRecord> gameRecords = athlete.getGameRecordsList();
-
-                    System.out.println();
-                    if (gameRecords.size() == 0) {
-                        System.out.println("No game records found");
-                        break;
-                    }
-
-                    System.out.println("Dislaying Symptoms Summary for 5 most recent games recorded: ");
-                    System.out.println("---------");
-                    for (GameRecord gameRecord : gameRecords) {
-                        System.out.println(gameRecord.getSymptomSummary());
-                        System.out.println("---------");
-                    }
+                    displayAthleteSymptomsSummary(athlete);
                     break;
 
                 case 3: // am I at risk?
@@ -158,14 +140,11 @@ public class App {
                     break;
 
                 case 6: // exit
-                    System.out.println();
-                    System.out.println("Thank you for using Sport Concussion Assessment System!");
-                    System.exit(0);
+                    exit();
                     break;
 
                 default:
-                    System.out.println();
-                    System.out.println("Invalid choice, please try again!");
+                    displayInvalidChoice();
                     break;
             }
         } while (true);
@@ -187,8 +166,7 @@ public class App {
             System.out.println("Enter your choice: ");
 
             if (!scanner.hasNextInt()) {
-                System.out.println();
-                System.out.println("Invalid choice, please try again!");
+                displayInvalidChoice();
                 scanner.nextLine();
                 continue;
             }
@@ -196,62 +174,22 @@ public class App {
 
             switch (userChoice) {
                 case 1: // get a list of all athletes
-                {
-                    ArrayList<Athlete> athletes = systemManager.getAthletes();
-
-                    System.out.println();
-                    if (athletes.size() == 0) {
-                        System.out.println("No athletes found");
-                        break;
-                    }
-
-                    System.out.println("Dislaying all athletes: ");
-                    System.out.println("---------");
-                    for (Athlete athlete : athletes) {
-                        System.out.println("ID: " + athlete.getUserID() + ", Name: " + athlete.getName() + ", Age: "
-                                + athlete.getAge() + ", Sport: " + athlete.getSport() + ", Risk Indicator: "
-                                + GameRecord.getColoredOverallRating(athlete.getCurrentRiskIndicator()));
-                        System.out.println("---------");
-                    }
+                    displayAllAthletes();
                     break;
-                }
 
                 case 2: // view symptoms summary for an athlete
                 {
                     System.out.println();
                     System.out.println("Enter the athlete's user ID: ");
                     if (!scanner.hasNextInt()) {
-                        System.out.println();
-                        System.out.println("Invalid choice, please try again!");
+                        displayInvalidChoice();
                         scanner.nextLine();
                         continue;
                     }
                     int userID = scanner.nextInt();
                     scanner.nextLine();
-
                     Athlete athlete = systemManager.getAthlete(userID);
-                    if (athlete == null) {
-                        System.out.println();
-                        System.out.println("Athlete not found");
-                        break;
-                    }
-
-                    ArrayList<GameRecord> gameRecords = athlete.getGameRecordsList();
-
-                    System.out.println();
-                    if (gameRecords.size() == 0) {
-                        System.out.println("No game records found");
-                        break;
-                    }
-
-                    System.out.println(
-                            "Dislaying " + athlete.getName()
-                                    + "'s Symptoms Summary for 5 most recent games recorded: ");
-                    System.out.println("---------");
-                    for (GameRecord gameRecord : gameRecords) {
-                        System.out.println(gameRecord.getSymptomSummary());
-                        System.out.println("---------");
-                    }
+                    displayAthleteSymptomsSummary(athlete);
                     break;
                 }
 
@@ -260,48 +198,27 @@ public class App {
                     System.out.println();
                     System.out.println("Enter the athlete's user ID: ");
                     if (!scanner.hasNextInt()) {
-                        System.out.println();
-                        System.out.println("Invalid choice, please try again!");
+                        displayInvalidChoice();
                         scanner.nextLine();
                         continue;
                     }
                     int userID = scanner.nextInt();
                     scanner.nextLine();
-
                     Athlete athlete = systemManager.getAthlete(userID);
-                    if (athlete == null) {
-                        System.out.println();
-                        System.out.println("Athlete not found");
-                        break;
-                    }
-
-                    System.out.println();
-                    System.out.println("Enter your advice for " + athlete.getName() + ": ");
-                    String advice = scanner.nextLine();
-                    medicalPractitioner.setAdvice(athlete, advice);
-
-                    System.out.println();
-                    System.out.println("Advice saved successfully!");
+                    displaySetMedicalPracitionerAdvice(athlete);
                     break;
                 }
 
                 case 4: // back
-                {
                     displayMainMenu();
                     break;
-                }
 
                 case 5: // exit
-                {
-                    System.out.println();
-                    System.out.println("Thank you for using Sport Concussion Assessment System!");
-                    System.exit(0);
+                    exit();
                     break;
-                }
 
                 default: {
-                    System.out.println();
-                    System.out.println("Invalid choice, please try again!");
+                    displayInvalidChoice();
                     break;
                 }
             }
@@ -368,5 +285,70 @@ public class App {
         }
 
         return symptomScores;
+    }
+
+    private static void exit() {
+        System.out.println();
+        System.out.println("Thank you for using Sport Concussion Assessment System!");
+        System.exit(0);
+    }
+
+    private static void displayInvalidChoice() {
+        System.out.println();
+        System.out.println("Invalid choice, please try again!");
+    }
+
+    private static void displayAthleteSymptomsSummary(Athlete athlete) {
+        ArrayList<GameRecord> gameRecords = athlete.getGameRecordsList();
+
+        System.out.println();
+        if (gameRecords.size() == 0) {
+            System.out.println("No game records found");
+            return;
+        }
+
+        System.out.println(
+                "Dislaying " + athlete.getName()
+                        + "'s Symptoms Summary for 5 most recent games recorded: ");
+        System.out.println("---------");
+        for (GameRecord gameRecord : gameRecords) {
+            System.out.println(gameRecord.getSymptomSummary());
+            System.out.println("---------");
+        }
+    }
+
+    private static void displayAllAthletes() {
+        ArrayList<Athlete> athletes = systemManager.getAthletes();
+
+        System.out.println();
+        if (athletes.size() == 0) {
+            System.out.println("No athletes found");
+            return;
+        }
+
+        System.out.println("Dislaying all athletes: ");
+        System.out.println("---------");
+        for (Athlete athlete : athletes) {
+            System.out.println("ID: " + athlete.getUserID() + ", Name: " + athlete.getName() + ", Age: "
+                    + athlete.getAge() + ", Sport: " + athlete.getSport() + ", Risk Indicator: "
+                    + GameRecord.getColoredOverallRating(athlete.getCurrentRiskIndicator()));
+            System.out.println("---------");
+        }
+    }
+
+    private static void displaySetMedicalPracitionerAdvice(Athlete athlete) {
+        if (athlete == null) {
+            System.out.println();
+            System.out.println("Athlete not found");
+            return;
+        }
+
+        System.out.println();
+        System.out.println("Enter your advice for " + athlete.getName() + ": ");
+        String advice = scanner.nextLine();
+        medicalPractitioner.setAdvice(athlete, advice);
+
+        System.out.println();
+        System.out.println("Advice saved successfully!");
     }
 }
