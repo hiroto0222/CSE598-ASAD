@@ -53,7 +53,8 @@ public class PersonnelDirectory {
 					boolean found = false;
 					int loc = -1;
 					for (int i = 0; i < per.getNumPerson(); i++) {
-						if (per.getPersonList().get(i).first.equals(firstN) && per.getPersonList().get(i).last.equals(lastN)) {
+						if (per.getPersonList().get(i).getFirst().equals(firstN)
+								&& per.getPersonList().get(i).getFirst().equals(lastN)) {
 							found = true;
 							loc = i;
 						}
