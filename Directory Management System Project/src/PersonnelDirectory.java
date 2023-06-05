@@ -38,7 +38,6 @@ public class PersonnelDirectory {
 					scan.nextLine();
 
 					Employee e1 = new Employee(lastN, firstN, middleN, empID, salary);
-
 					per.addPersonnel(e1);
 
 					break;
@@ -66,7 +65,7 @@ public class PersonnelDirectory {
 					} else {
 						System.out.println("not found");
 						Person p1 = new Person(lastN, firstN, " ");
-						per.getPersonList().add(p1);
+						per.addPersonnel(p1);
 					}
 
 					break;
