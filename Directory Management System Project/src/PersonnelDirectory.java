@@ -1,14 +1,15 @@
 import java.util.Scanner;
 
 public class PersonnelDirectory {
-	public static void main(String[] args) {
-		Personnel per = new Personnel();
-		Scanner scan = new Scanner(System.in);
-		String firstN, lastN, middleN;
-		int empID;
-		double salary;
-		int choice = -1;
+	private static Personnel per = new Personnel();
+	private static PersonnelFactory pf = new PersonnelFactory();
+	private static Scanner scan = new Scanner(System.in);
+	private static String firstN, lastN, middleN;
+	private static int empID;
+	private static double salary;
 
+	public static void main(String[] args) {
+		int choice = -1;
 		do {
 			System.out.println("Welcome to the Personnel Directory Management System");
 			System.out.println("====================================================");
@@ -24,22 +25,7 @@ public class PersonnelDirectory {
 
 			switch (choice) {
 				case 1:
-					System.out.println("Enter first name: ");
-					firstN = scan.nextLine();
-					System.out.println("Enter last name: ");
-					lastN = scan.nextLine();
-					System.out.println("Enter middle name: ");
-					middleN = scan.nextLine();
-
-					System.out.println("Enter empploy id : ");
-					empID = scan.nextInt();
-					System.out.println("Enter base salaey");
-					salary = scan.nextDouble();
-					scan.nextLine();
-
-					Employee e1 = new Employee(lastN, firstN, middleN, empID, salary);
-					per.addPersonnel(e1);
-
+					displayAddPersonnelMenu();
 					break;
 
 				case 2:
@@ -86,5 +72,68 @@ public class PersonnelDirectory {
 					break;
 			}
 		} while (true);
+	}
+
+	private static void displayAddPersonnelMenu() {
+		int choice = -1;
+		System.out.println("Select type of Personnel to add (1, 2, 3, 4, 5): ");
+		System.out.println("\n\n\t 1. Person");
+		System.out.println("\n\t 2. Volunteer");
+		System.out.println("\n\t 3. Employee");
+		System.out.println("\n\t 4. Security");
+		System.out.println("\n\t 5. Executive");
+
+		choice = scan.nextInt();
+		scan.nextLine();
+
+		String type;
+		switch (choice) {
+			case 1:
+				type = "Person";
+				displayAddPersonMenu();
+				per.addPersonnel(pf.createPersonnel(type, firstN, lastN, middleN));
+				break;
+
+			case 2:
+				type = "Volunteer";
+				displayAddPersonMenu();
+				per.addPersonnel(pf.createPersonnel(type, firstN, lastN, middleN));
+				break;
+
+			case 3:
+				type = "Employee";
+				displayAddEmployeeMenu();
+				per.addPersonnel(pf.createPersonnel(type, firstN, lastN, middleN, empID, salary));
+				break;
+
+			case 4:
+				type = "Security";
+				displayAddEmployeeMenu();
+				per.addPersonnel(pf.createPersonnel(type, firstN, lastN, middleN, empID, salary));
+				break;
+
+			case 5:
+				type = "Executive";
+				displayAddEmployeeMenu();
+				per.addPersonnel(pf.createPersonnel(type, firstN, lastN, middleN, empID, salary));
+				break;
+		}
+	}
+
+	private static void displayAddEmployeeMenu() {
+		displayAddPersonMenu();
+		System.out.println("Enter empploy id : ");
+		empID = scan.nextInt();
+		System.out.println("Enter base salaey");
+		salary = scan.nextDouble();
+	}
+
+	private static void displayAddPersonMenu() {
+		System.out.println("Enter first name: ");
+		firstN = scan.nextLine();
+		System.out.println("Enter last name: ");
+		lastN = scan.nextLine();
+		System.out.println("Enter middle name: ");
+		middleN = scan.nextLine();
 	}
 }
