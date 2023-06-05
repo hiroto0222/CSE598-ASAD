@@ -1,4 +1,5 @@
 public class Person {
+	// changed attributes to private from public
 	private String last;
 	private String first;
 	private String middle;

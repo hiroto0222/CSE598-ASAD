@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Personnel {
+	// changed attribute to private from public
 	private ArrayList<Person> personList;
 
 	public Personnel() {

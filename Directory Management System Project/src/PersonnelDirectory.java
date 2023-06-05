@@ -65,7 +65,7 @@ public class PersonnelDirectory {
 					} else {
 						System.out.println("not found");
 						Person p1 = new Person(lastN, firstN, " ");
-						per.addPersonnel(p1);
+						per.addPersonnel(p1); // fixed content coupling violation
 					}
 
 					break;
