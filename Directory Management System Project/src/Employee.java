@@ -11,4 +11,8 @@ public class Employee extends Person {
 	public int getID() {
 		return empID;
 	}
+
+	public double getBaseSalary() {
+		return baseSalary;
+	}
 }
